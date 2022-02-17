@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTechnique_EONIX_Api", "TestTechnique_EONIX_Api\TestTechnique_EONIX_Api.csproj", "{CFBD28CC-B49D-4378-9860-6D24B184894C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFBD28CC-B49D-4378-9860-6D24B184894C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFBD28CC-B49D-4378-9860-6D24B184894C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFBD28CC-B49D-4378-9860-6D24B184894C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFBD28CC-B49D-4378-9860-6D24B184894C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FEA41630-9E8A-49E1-B2AD-3128808E037A}
+	EndGlobalSection
+EndGlobal
