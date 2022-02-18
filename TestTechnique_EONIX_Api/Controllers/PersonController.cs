@@ -20,23 +20,24 @@ namespace TestTechnique_EONIX_Api.Controllers
             _context = context;
         }
 
+
         // /Person?firstname=erer&lastname=mich
         [HttpGet]
         public async Task<IActionResult> Index([FromQuery] String firstname, String lastname)
         {
-            System.Diagnostics.Debug.WriteLine(firstname + " , " + lastname);
-
            
             List<Person> personList = await _context.Persons.ToListAsync();
 
+            if (String.IsNullOrEmpty(firstname) && String.IsNullOrEmpty(lastname))
+                return View(await _context.Persons.ToListAsync());
+            else
+                return View(personList.FindAll(
+                (p =>
+                    (String.IsNullOrEmpty(firstname) && p.Lastname.ToLower().Contains(lastname.ToLower()))
+                    || (String.IsNullOrEmpty(lastname) && p.Firstname.ToLower().Contains(firstname.ToLower()))
+                    || (!String.IsNullOrEmpty(firstname) && !String.IsNullOrEmpty(lastname) && p.Firstname.ToLower().Contains(firstname.ToLower()) && p.Lastname.ToLower().Contains(lastname.ToLower()))
 
-            return View(personList.FindAll(
-            (p =>
-                (String.IsNullOrEmpty(firstname) && p.Lastname.ToLower().Contains(lastname.ToLower()))
-                || (String.IsNullOrEmpty(lastname) && p.Firstname.ToLower().Contains(firstname.ToLower()))
-                || (!String.IsNullOrEmpty(firstname) && !String.IsNullOrEmpty(lastname) && p.Firstname.ToLower().Contains(firstname.ToLower()) && p.Lastname.ToLower().Contains(lastname.ToLower()))
-
-                 )));
+                     )));
 
 
         }
@@ -64,15 +65,15 @@ namespace TestTechnique_EONIX_Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Person person)
         {
-            //var isValid = await _licenceService.ValidateAsync(licence);
-            
+                        
             if (ModelState.IsValid)
             {
                 _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(person);
+
+            return BadRequest();
         }
 
         [HttpPut("{id}")]
@@ -89,12 +90,15 @@ namespace TestTechnique_EONIX_Api.Controllers
                 return NotFound();
             }
 
-            var json = JsonConvert.SerializeObject(person);
-            personToUpdate.Firstname = person.Firstname;
-            personToUpdate.Lastname = person.Lastname;
+            if(!String.IsNullOrEmpty(person.Firstname))
+                personToUpdate.Firstname = person.Firstname;
+
+            if(!String.IsNullOrEmpty(person.Lastname))
+                personToUpdate.Lastname = person.Lastname;
+
             await _context.SaveChangesAsync();
 
-            return View(person);
+            return RedirectToAction(nameof(Index));
         }
 
          
